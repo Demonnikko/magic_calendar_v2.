@@ -1,73 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Magic Calendar</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-<script defer src="script.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Magic Calendar</title>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-<header>
-  <h1>🗓 Magic Calendar</h1>
-  <div id="month-summary"></div>
-</header>
+  <header>
+    <h1>🗓 Magic Calendar</h1>
+    <div id="month-income"></div>
+  </header>
 
-<main>
-  <form id="event-form">
-    <h2>Новое событие</h2>
-    <label>Название
-      <input id="title" required>
-    </label>
+  <main>
+    <div id="calendar"></div>
+  </main>
 
-    <label>Дата и время
-      <input type="datetime-local" id="datetime" step="300">
-    </label>
+  <!-- Day modal -->
+  <div id="dayModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close-btn">&times;</span>
+      <h2 id="modal-date"></h2>
+      <ul id="eventsOfDay"></ul>
+      <button id="addEventBtn">＋ Добавить событие</button>
+    </div>
+  </div>
 
-    <label class="switch">
-      <input type="checkbox" id="allday">
-      <span class="slider"></span>
-      <span class="label">Весь день</span>
-    </label>
+  <!-- Event sheet -->
+  <div id="sheet" class="sheet hidden">
+    <form id="eventForm">
+      <h3 id="sheetTitle">Новое событие</h3>
 
-    <label>Адрес
-      <input id="address" placeholder="Город, улица…">
-    </label>
+      <label>Название
+        <input id="title" required>
+      </label>
 
-    <label>Предоплата (₽)
-      <input type="number" id="prepay" step="100" value="0">
-    </label>
+      <label>Время
+        <input type="time" id="time" step="300">
+      </label>
 
-    <label>Гонорар (₽)
-      <input type="number" id="totalfee" step="100" value="15000">
-    </label>
+      <label class="switch">
+        <input type="checkbox" id="allday">
+        <span class="slider"></span>
+        <span class="switch-label">Весь день</span>
+      </label>
 
-    <label>Категория
-      <select id="category">
-        <option value="🎩 Концерт">🎩 Концерт</option>
-        <option value="🃏 Микромагия">🃏 Микромагия</option>
-        <option value="🎉 Частник">🎉 Частник</option>
-        <option value="🎂 Детский">🎂 Детский</option>
-      </select>
-    </label>
+      <label>Адрес
+        <input id="address" placeholder="Город, улица…">
+      </label>
 
-    <label>Заметки
-      <textarea id="notes" rows="3"></textarea>
-    </label>
+      <label>Предоплата (₽)
+        <input type="number" id="prepay" step="100" value="0">
+      </label>
 
-    <button type="submit">Сохранить</button>
-  </form>
+      <label>Гонорар (₽)
+        <input type="number" id="fee" step="100" value="15000">
+      </label>
 
-  <section id="events-list">
-    <h2>События</h2>
-    <ul></ul>
-  </section>
-</main>
+      <label>Категория
+        <select id="categorySelect"></select>
+        <small><a href="#" id="addCatLink">+ новая категория</a></small>
+      </label>
 
-<footer>
-  <small>Данные сохраняются локально на этом устройстве.</small>
-</footer>
+      <label>Заметки
+        <textarea id="notes" rows="3"></textarea>
+      </label>
+
+      <label>Checklist (каждая строка — пункт)
+        <textarea id="checklist" rows="3" placeholder="Реквизит\nМузыка\nКостюм"></textarea>
+      </label>
+
+      <button type="submit">Сохранить</button>
+    </form>
+  </div>
+
+  <!-- New category dialog -->
+  <div id="catModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeCat" class="close-btn">&times;</span>
+      <h3>Новая категория</h3>
+      <label>Название
+        <input id="catName">
+      </label>
+      <label>Emoji
+        <input id="catEmoji" placeholder="🎻">
+      </label>
+      <label>Цвет
+        <input type="color" id="catColor" value="#8888ff">
+      </label>
+      <button id="saveCat">Добавить</button>
+    </div>
+  </div>
 </body>
 </html>
