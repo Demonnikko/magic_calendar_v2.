@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Magic Calendar</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+<script defer src="script.js"></script>
+</head>
+<body>
+<header>
+  <h1>🗓 Magic Calendar</h1>
+  <div id="month-summary"></div>
+</header>
+
+<main>
+  <form id="event-form">
+    <h2>Новое событие</h2>
+    <label>Название
+      <input id="title" required>
+    </label>
+
+    <label>Дата и время
+      <input type="datetime-local" id="datetime" step="300">
+    </label>
+
+    <label class="switch">
+      <input type="checkbox" id="allday">
+      <span class="slider"></span>
+      <span class="label">Весь день</span>
+    </label>
+
+    <label>Адрес
+      <input id="address" placeholder="Город, улица…">
+    </label>
+
+    <label>Предоплата (₽)
+      <input type="number" id="prepay" step="100" value="0">
+    </label>
+
+    <label>Гонорар (₽)
+      <input type="number" id="totalfee" step="100" value="15000">
+    </label>
+
+    <label>Категория
+      <select id="category">
+        <option value="🎩 Концерт">🎩 Концерт</option>
+        <option value="🃏 Микромагия">🃏 Микромагия</option>
+        <option value="🎉 Частник">🎉 Частник</option>
+        <option value="🎂 Детский">🎂 Детский</option>
+      </select>
+    </label>
+
+    <label>Заметки
+      <textarea id="notes" rows="3"></textarea>
+    </label>
+
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <section id="events-list">
+    <h2>События</h2>
+    <ul></ul>
+  </section>
+</main>
+
+<footer>
+  <small>Данные сохраняются локально на этом устройстве.</small>
+</footer>
+</body>
+</html>
